@@ -8,6 +8,7 @@ project(Tests
 set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "" FORCE)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+include(CTest)
 
 conan_basic_setup(TARGETS)
 
@@ -54,5 +55,10 @@ target_sources(tests_TestLib
 )
 target_link_libraries(tests_TestLib CONAN_PKG::catch2 TestLib)
 set_target_properties(tests_TestLib PROPERTIES FOLDER "Unit Tests")
+
+#### CTEST ####
+
+add_test(NAME tests COMMAND tests)
+add_test(NAME tests_TestLib COMMAND tests_TestLib)
 
 set_directory_properties(PROPERTIES VS_STARTUP_PROJECT TestApp)
